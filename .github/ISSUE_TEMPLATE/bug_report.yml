@@ -1,0 +1,33 @@
+name: Relatar defeito
+description: Informe um comportamento reproduzível do framework.
+title: "[Bug]: "
+labels: [bug]
+body:
+  - type: textarea
+    id: description
+    attributes:
+      label: Descrição
+      description: O que aconteceu e o que deveria acontecer?
+    validations:
+      required: true
+  - type: input
+    id: version
+    attributes:
+      label: Versão
+      placeholder: 0.3.0-beta.1
+    validations:
+      required: true
+  - type: textarea
+    id: reproduce
+    attributes:
+      label: Reprodução mínima
+      description: Remova segredos e código proprietário.
+    validations:
+      required: true
+  - type: textarea
+    id: environment
+    attributes:
+      label: Ambiente
+      description: Sistema operacional, Node.js, Git e comando executado.
+    validations:
+      required: true

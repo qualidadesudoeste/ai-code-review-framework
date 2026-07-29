@@ -1,0 +1,11 @@
+{
+  "$schema": "../schemas/config.schema.json",
+  "mode": "change",
+  "origin": "ai",
+  "focus": "general",
+  "securityAlways": true,
+  "includeDiff": false,
+  "maxDiffBytes": 120000,
+  "exclude": ["dist/**", "coverage/**", "vendor/**", "**/*.min.js"],
+  "modules": { "enable": ["06"], "disable": [] }
+}

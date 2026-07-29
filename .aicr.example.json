@@ -1,0 +1,11 @@
+{
+  "$schema": "./.aicr/config.schema.json",
+  "mode": "change",
+  "origin": "mixed",
+  "focus": "general",
+  "securityAlways": true,
+  "includeDiff": false,
+  "maxDiffBytes": 120000,
+  "exclude": [".aicr/**", "**/dist/**", "**/build/**", "**/vendor/**", "**/*.min.js"],
+  "modules": { "enable": [], "disable": [] }
+}

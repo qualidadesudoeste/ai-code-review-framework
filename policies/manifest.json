@@ -1,0 +1,11 @@
+{
+  "version": "0.3.0",
+  "modules": [
+    { "id": "01", "file": "01_FUNCIONAL_REGRESSAO.md", "name": "Funcional e regressão", "autoPatterns": ["src/", "app/", "test", "spec", "controller", "service", "handler"] },
+    { "id": "02", "file": "02_SEGURANCA.md", "name": "Segurança", "autoPatterns": ["auth", "token", "secret", "api", "route", "controller", "upload", "package\\.json", "lock", "docker", "terraform"] },
+    { "id": "03", "file": "03_DADOS_CONFIABILIDADE.md", "name": "Dados e confiabilidade", "autoPatterns": ["migration", "schema", "database", "repository", "queue", "job", "worker", "webhook", "cache", "integration"] },
+    { "id": "04", "file": "04_ARQUITETURA_QUALIDADE.md", "name": "Arquitetura e qualidade", "autoPatterns": ["config", "openapi", "swagger", "docker", "workflow", "pipeline"] },
+    { "id": "05", "file": "05_CRIACAO_INICIAL.md", "name": "Criação inicial", "autoPatterns": [] },
+    { "id": "06", "file": "06_CODIGO_GERADO_IA.md", "name": "Código gerado por IA", "autoPatterns": [] }
+  ]
+}

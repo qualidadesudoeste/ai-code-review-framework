@@ -1,0 +1,76 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$defs": {
+    "strings": { "type": "array", "items": { "type": "string" } },
+    "evidence": { "enum": ["STATIC", "LOCAL_EXECUTION", "CI", "LOGS", "MANUAL_TEST", "AUTOMATED_TEST"] },
+    "occurrence": {
+      "type": "object", "additionalProperties": false, "required": ["file", "line", "description"],
+      "properties": { "file": { "type": "string", "minLength": 1 }, "line": { "type": "integer", "minimum": 1 }, "description": { "type": "string", "minLength": 1 } }
+    },
+    "finding": {
+      "type": "object", "additionalProperties": false,
+      "required": ["id", "severity", "title", "category", "blocking", "confidence", "evidenceTypes", "rootCause", "occurrences", "scenarioImpact", "evidence", "recommendation", "validation"],
+      "properties": {
+        "id": { "type": "string", "pattern": "^F-[0-9]{3,}$" },
+        "severity": { "enum": ["P0", "P1", "P2", "P3", "SUGGESTION"] }, "title": { "type": "string", "minLength": 1 },
+        "category": { "type": "string", "minLength": 1 }, "blocking": { "type": "boolean" }, "confidence": { "enum": ["HIGH", "MEDIUM", "LOW"] },
+        "evidenceTypes": { "type": "array", "items": { "$ref": "#/$defs/evidence" }, "minItems": 1, "uniqueItems": true },
+        "rootCause": { "type": "string", "minLength": 1 }, "occurrences": { "type": "array", "items": { "$ref": "#/$defs/occurrence" }, "minItems": 1 },
+        "scenarioImpact": { "type": "string", "minLength": 1 }, "evidence": { "type": "string", "minLength": 1 },
+        "recommendation": { "type": "string", "minLength": 1 }, "validation": { "type": "string", "minLength": 1 }
+      }
+    }
+  },
+  "type": "object", "additionalProperties": false,
+  "required": ["schemaVersion", "verdict", "productionRisk", "mentalModel", "scope", "findings", "checks", "coverage", "knownFalsePositives", "limitations", "actions"],
+  "properties": {
+    "schemaVersion": { "const": "1.0" },
+    "verdict": { "enum": ["APPROVED", "APPROVED_WITH_NOTES", "CHANGES_REQUESTED", "INCONCLUSIVE"] },
+    "productionRisk": {
+      "type": "object", "additionalProperties": false, "required": ["canDeploy", "justification", "conditions"],
+      "properties": { "canDeploy": { "enum": ["YES", "NO", "DEPENDS"] }, "justification": { "type": "string", "minLength": 1 }, "conditions": { "$ref": "#/$defs/strings" } }
+    },
+    "mentalModel": {
+      "type": "object", "additionalProperties": false, "required": ["purpose", "businessRule", "affectedComponents", "mainRisks"],
+      "properties": { "purpose": { "type": "string" }, "businessRule": { "type": "string" }, "affectedComponents": { "$ref": "#/$defs/strings" }, "mainRisks": { "$ref": "#/$defs/strings" } }
+    },
+    "scope": {
+      "type": "object", "additionalProperties": false, "required": ["reviewed", "partial", "pending", "inaccessible"],
+      "properties": { "reviewed": { "$ref": "#/$defs/strings" }, "partial": { "$ref": "#/$defs/strings" }, "pending": { "$ref": "#/$defs/strings" }, "inaccessible": { "$ref": "#/$defs/strings" } }
+    },
+    "findings": { "type": "array", "items": { "$ref": "#/$defs/finding" } },
+    "checks": {
+      "type": "array", "items": { "type": "object", "additionalProperties": false, "required": ["command", "evidenceType", "status", "result"],
+        "properties": { "command": { "type": "string" }, "evidenceType": { "$ref": "#/$defs/evidence" }, "status": { "enum": ["PASSED", "FAILED", "NOT_RUN", "BLOCKED"] }, "result": { "type": "string" } } }
+    },
+    "coverage": {
+      "type": "array", "items": { "type": "object", "additionalProperties": false, "required": ["module", "status", "evidence"],
+        "properties": { "module": { "type": "string" }, "status": { "enum": ["OK", "FAIL", "NA", "NOT_VERIFIED"] }, "evidence": { "type": "string" } } }
+    },
+    "knownFalsePositives": {
+      "type": "array", "items": { "type": "object", "additionalProperties": false, "required": ["candidate", "file", "line", "reason", "evidenceType"],
+        "properties": { "candidate": { "type": "string" }, "file": { "type": "string" }, "line": { "type": "integer", "minimum": 1 }, "reason": { "type": "string" }, "evidenceType": { "$ref": "#/$defs/evidence" } } }
+    },
+    "limitations": { "$ref": "#/$defs/strings" },
+    "actions": {
+      "type": "object", "additionalProperties": false, "required": ["blocking", "validation", "optional"],
+      "properties": { "blocking": { "$ref": "#/$defs/strings" }, "validation": { "$ref": "#/$defs/strings" }, "optional": { "$ref": "#/$defs/strings" } }
+    }
+  },
+  "allOf": [
+    {
+      "if": { "type": "object", "properties": { "findings": { "type": "array", "contains": { "type": "object", "required": ["blocking"], "properties": { "blocking": { "const": true } } } } } },
+      "then": {
+        "type": "object",
+        "properties": {
+          "verdict": { "const": "CHANGES_REQUESTED" },
+          "productionRisk": { "type": "object", "properties": { "canDeploy": { "const": "NO" } } }
+        }
+      }
+    },
+    {
+      "if": { "type": "object", "properties": { "verdict": { "const": "APPROVED" } }, "required": ["verdict"] },
+      "then": { "type": "object", "properties": { "findings": { "type": "array", "maxItems": 0 } } }
+    }
+  ]
+}

@@ -1,0 +1,10 @@
+node_modules/
+coverage/
+*.tgz
+*.log
+.DS_Store
+aicr-prompt*.md
+aicr-prompt*.json
+review-result.json
+review-report.md
+fix-prompt.md

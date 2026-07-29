@@ -1,0 +1,7 @@
+* text=auto
+*.mjs text eol=lf
+*.js text eol=lf
+*.json text eol=lf
+*.md text eol=lf
+*.yml text eol=lf
+bin/aicr.mjs text eol=lf
