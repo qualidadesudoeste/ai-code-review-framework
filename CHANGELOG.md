@@ -2,6 +2,23 @@
 
 Este projeto segue [Keep a Changelog](https://keepachangelog.com/pt-BR/1.1.0/) e [Versionamento Semântico](https://semver.org/lang/pt-BR/).
 
+## [0.3.0-beta.2] - 2026-07-30
+
+### Adicionado
+
+- `CODEOWNERS` e política formal de governança.
+- Guia de adoção e comunicação para desenvolvedores.
+- Geração automática de ZIP, pacote npm e checksums em releases.
+
+### Alterado
+
+- GitHub Actions atualizadas para `actions/checkout@v7`, `actions/setup-node@v7` e `github/codeql-action@v4`.
+- Processo de release passa a marcar versões beta como pré-release.
+
+### Segurança
+
+- Proteção da branch `main`, checks obrigatórios e atualizações automáticas de segurança habilitados no GitHub.
+
 ## [0.3.0-beta.1] - 2026-07-29
 
 ### Adicionado

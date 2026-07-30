@@ -1,13 +1,14 @@
 {
   "name": "aicr-framework",
-  "version": "0.3.0-beta.1",
+  "version": "0.3.0-beta.2",
   "type": "module",
   "description": "Framework modular e vendor-neutral para revisão e correção assistida de código por IA",
   "bin": { "aicr": "./bin/aicr.mjs" },
   "scripts": {
     "test": "node --test",
-    "check": "node --check bin/aicr.mjs && node --test",
-    "pack:check": "npm pack --dry-run"
+    "check": "node --check bin/aicr.mjs && node --check scripts/build-release.mjs && node --test",
+    "pack:check": "npm pack --dry-run",
+    "release:artifacts": "node scripts/build-release.mjs"
   },
   "engines": { "node": ">=20" },
   "files": ["bin", "src", "policies", "schemas", "docs", "examples", ".aicr.example.json", "README.md", "LICENSE", "CHANGELOG.md", "SECURITY.md"],

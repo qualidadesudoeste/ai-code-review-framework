@@ -1,6 +1,8 @@
 node_modules/
 coverage/
 *.tgz
+AI_CODE_REVIEW_FRAMEWORK_*.zip
+RELEASE_CHECKSUMS_*.txt
 *.log
 .DS_Store
 aicr-prompt*.md

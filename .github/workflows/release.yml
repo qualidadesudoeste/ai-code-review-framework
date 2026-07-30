@@ -20,9 +20,15 @@ jobs:
       - run: npm run check
       - name: Validate tag and package version
         run: node -e "if (process.env.GITHUB_REF_NAME !== 'v' + require('./package.json').version) process.exit(1)"
-      - name: Build package
-        run: npm pack
+      - name: Build release artifacts
+        id: artifacts
+        run: npm run release:artifacts
       - name: Create GitHub release
         env:
           GH_TOKEN: ${{ github.token }}
-        run: gh release create "$GITHUB_REF_NAME" ./*.tgz --generate-notes --verify-tag
+        run: |
+          gh release create "$GITHUB_REF_NAME" \
+            "${{ steps.artifacts.outputs.package }}" \
+            "${{ steps.artifacts.outputs.archive }}" \
+            "${{ steps.artifacts.outputs.checksums }}" \
+            --generate-notes --prerelease --verify-tag
