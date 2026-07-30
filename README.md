@@ -82,7 +82,7 @@ Se o diff exceder `maxDiffBytes`, `compose` cria `prompt.part-001.md`, `prompt.p
 }
 ```
 
-Use `aicr modules` para listar módulos. Consulte [Arquitetura](docs/ARCHITECTURE.md), [Modelo de ameaça](docs/THREAT_MODEL.md), [Governança](docs/GOVERNANCE.md), [Contribuição](CONTRIBUTING.md) e [Segurança](SECURITY.md).
+Use `aicr modules` para listar módulos. Consulte [Guia de adoção](docs/ADOPTION.md), [Arquitetura](docs/ARCHITECTURE.md), [Modelo de ameaça](docs/THREAT_MODEL.md), [Governança](docs/GOVERNANCE.md), [Contribuição](CONTRIBUTING.md) e [Segurança](SECURITY.md).
 
 ## Limites conhecidos
 
